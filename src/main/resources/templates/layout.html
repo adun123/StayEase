@@ -1,0 +1,18 @@
+<div th:fragment="shell(content)">
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="brand">StayEase</div>
+            <div class="role" th:text="${staff.nama + ' • ' + staff.jabatan}">Admin</div>
+            <a href="/dashboard">Dashboard</a>
+            <a th:if="${canRoomView}" href="/kamar">Kamar</a>
+            <a th:if="${canGuest}" href="/tamu">Data Tamu</a>
+            <a th:if="${canReservation}" href="/reservasi">Reservasi</a>
+            <a th:if="${canCheckIn}" href="/checkin">Check-in</a>
+            <a th:if="${canCheckOut}" href="/checkout">Check-out</a>
+            <a th:if="${canReport}" href="/laporan">Laporan Harian</a>
+            <a th:if="${canStaff}" href="/staff">Manajemen Staff</a>
+            <a href="/logout">Logout</a>
+        </aside>
+        <main class="content" th:insert="${content}"></main>
+    </div>
+</div>

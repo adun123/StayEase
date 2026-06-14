@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Check-out</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div th:replace="~{layout :: shell(~{::section})}">
+        <section>
+            <h1>Operasional Check-out</h1>
+            <div class="card">
+                <h2>Proses Check-out</h2>
+                <form class="form two" method="post" action="/checkout" onsubmit="return validasiCheckOut()">
+                    <select name="idReservasi" id="idCheckoutReservasi">
+                        <option value="">-- Pilih Data Check-in --</option>
+                        <option th:each="r:${daftarReservasi}" th:value="${r.idReservasi}" th:text="${r.idReservasi + ' - ' + r.tamu.nama + ' - Kamar ' + r.kamar.nomorKamar}"></option>
+                    </select>
+                    <button class="btn">Proses Check-out</button>
+                </form>
+                <p class="hint">Status reservasi berubah CHECK_IN &rarr; CHECK_OUT dan status kamar TERISI &rarr; DIBERSIHKAN.</p>
+            </div>
+            <div class="card">
+                <h2>Riwayat Check-out</h2>
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Reservasi</th>
+                        <th>Tamu</th>
+                        <th>Tanggal Keluar</th>
+                        <th>Total Tagihan</th>
+                        <th>Petugas</th>
+                    </tr>
+                    <tr th:each="c:${daftarCheckOut}">
+                        <td th:text="${c.idCheckOut}"></td>
+                        <td th:text="${c.reservasi.idReservasi}"></td>
+                        <td th:text="${c.reservasi.tamu.nama}"></td>
+                        <td th:text="${c.tanggalKeluar}"></td>
+                        <td th:text="${#numbers.formatDecimal(c.totalTagihan,0,'COMMA',0,'POINT')}"></td>
+                        <td th:text="${c.petugas.nama}"></td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+    </div>
+    <script>
+    function validasiCheckOut() {
+        var dropdown = document.getElementById("idCheckoutReservasi");
+        var pilihan = dropdown.value;
+        if (pilihan === "") {
+            alert("Mohon pilih data check-in atau nomor kamar terlebih dahulu sebelum memproses check-out!");
+            return false;
+        }
+        return true;
+    }
+    </script>
+</body>
+</html>

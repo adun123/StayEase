@@ -1,0 +1,5 @@
+<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><head><title>Laporan</title><link rel="stylesheet" href="/css/style.css"></head><body><div th:replace="~{layout :: shell(~{::section})}"><section>
+<h1>Laporan Operasional Harian</h1><div class="card"><form class="form two" method="get" action="/laporan"><input name="tanggal" type="date" th:value="${tanggal}"><button class="btn">Generate Laporan</button></form></div>
+<div class="grid"><div class="stat"><small>Kamar Tersedia</small><br><b th:text="${laporan.jumlahKamarTersedia}"></b></div><div class="stat"><small>Kamar Terisi</small><br><b th:text="${laporan.jumlahKamarTerisi}"></b></div><div class="stat"><small>Check-in Hari Ini</small><br><b th:text="${laporan.jumlahCheckIn}"></b></div><div class="stat"><small>Check-out Hari Ini</small><br><b th:text="${laporan.jumlahCheckOut}"></b></div></div>
+<div class="card"><h2>Total Pendapatan</h2><h1 th:text="${'Rp ' + #numbers.formatDecimal(laporan.totalPendapatan,0,'COMMA',0,'POINT')}"></h1><p class="hint">Pendapatan dihitung dari transaksi check-out pada tanggal laporan.</p></div>
+</section></div></body></html>

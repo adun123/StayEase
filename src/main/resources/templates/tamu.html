@@ -1,0 +1,4 @@
+<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><head><title>Tamu</title><link rel="stylesheet" href="/css/style.css"></head><body><div th:replace="~{layout :: shell(~{::section})}"><section>
+<h1>Data Tamu</h1><div class="card"><h2>Tambah Tamu</h2><form class="form three" method="post" action="/tamu/add"><input name="nama" placeholder="Nama tamu" required><input name="noTelepon" placeholder="No telepon" required><button class="btn">Simpan</button></form></div>
+<div class="card"><h2>Daftar Tamu</h2><table><tr><th>ID</th><th>Nama</th><th>No Telepon</th></tr><tr th:each="t:${daftarTamu}"><td th:text="${t.idTamu}"></td><td th:text="${t.nama}"></td><td th:text="${t.noTelepon}"></td></tr></table></div>
+</section></div></body></html>

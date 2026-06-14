@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Check-in</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div th:replace="~{layout :: shell(~{::section})}">
+        <section>
+            <h1>Operasional Check-in</h1>
+            <div class="card">
+                <h2>Proses Check-in</h2>
+                <form class="form two" method="post" action="/checkin" onsubmit="return validasiCheckIn()">
+                    <select name="idReservasi" id="idReservasi">
+                        <option value="">-- Pilih Data Reservasi --</option>
+                        <option th:each="r:${daftarReservasi}" th:value="${r.idReservasi}" th:text="${r.idReservasi + ' - ' + r.tamu.nama + ' - Kamar ' + r.kamar.nomorKamar}"></option>
+                    </select>
+                    <button class="btn">Proses Check-in</button>
+                </form>
+                <p class="hint">Status reservasi berubah DIBOOKING &rarr; CHECK_IN dan status kamar TERSEDIA &rarr; TERISI.</p>
+            </div>
+            <div class="card">
+                <h2>Riwayat Check-in</h2>
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Reservasi</th>
+                        <th>Tamu</th>
+                        <th>Tanggal Masuk</th>
+                        <th>Petugas</th>
+                    </tr>
+                    <tr th:each="c:${daftarCheckIn}">
+                        <td th:text="${c.idCheckIn}"></td>
+                        <td th:text="${c.reservasi.idReservasi}"></td>
+                        <td th:text="${c.reservasi.tamu.nama}"></td>
+                        <td th:text="${c.tanggalMasuk}"></td>
+                        <td th:text="${c.petugas.nama}"></td>
+                    </tr>
+                </table>
+            </div>
+        </section>
+    </div>
+    <script>
+    function validasiCheckIn() {
+        var dropdown = document.getElementById("idReservasi");
+        var pilihan = dropdown.value;
+        if (pilihan === "") {
+            alert("Mohon pilih data reservasi terlebih dahulu sebelum memproses check-in!");
+            return false;
+        }
+        return true;
+    }
+    </script>
+</body>
+</html>

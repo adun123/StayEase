@@ -1,0 +1,20 @@
+<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><head><title>Dashboard</title><link rel="stylesheet" href="/css/style.css"></head><body>
+<div th:replace="~{layout :: shell(~{::section})}"><section>
+<div class="topbar"><div><h1>Dashboard</h1><p class="hint">Ringkasan sistem operasional StayEase.</p></div><a class="btn gray" href="/logout">Logout</a></div>
+<p th:if="${error}" class="error" th:text="${error}"></p>
+<div class="card"><h2>Role Login</h2><p th:text="${'Anda login sebagai ' + staff.jabatan + '. Menu yang tampil sudah disesuaikan dengan hak akses role ini.'}"></p></div>
+<div class="grid">
+<div class="stat"><small>Total Kamar</small><br><b th:text="${jumlahKamar}">0</b></div>
+<div class="stat"><small>Total Tamu</small><br><b th:text="${jumlahTamu}">0</b></div>
+<div class="stat"><small>Total Reservasi</small><br><b th:text="${jumlahReservasi}">0</b></div>
+<div class="stat"><small>Total Check-in</small><br><b th:text="${jumlahCheckIn}">0</b></div>
+</div>
+<div class="card"><h2>Hak Akses</h2><ul class="hint">
+<li th:if="${canRoomManage}">Admin dapat menambah kamar dan mengubah status kamar.</li>
+<li th:if="${canStaff}">Admin dapat mengelola data staff.</li>
+<li th:if="${canReport}">Admin dapat melihat laporan harian dan total pendapatan.</li>
+<li th:if="${canReservation}">Resepsionis/Admin dapat mengelola tamu, reservasi, check-in, dan check-out.</li>
+<li th:if="${canHousekeeping and !canRoomManage}">Housekeeping hanya dapat melihat kamar dan memperbarui status kamar.</li>
+</ul></div>
+<div class="card"><h2>Alur Sistem</h2><p>Login Staff → Kelola Data Kamar → Input Data Tamu → Buat Reservasi → Check-in → Check-out → Generate Laporan Harian.</p></div>
+</section></div></body></html>
